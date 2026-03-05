@@ -4,7 +4,7 @@ import com.rares.ecommerce.customer.DTO.CustomerRequest;
 import com.rares.ecommerce.customer.DTO.CustomerResponse;
 import com.rares.ecommerce.customer.Service.CustomerService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
     private final CustomerService service;
-
-    public CustomerController(CustomerService service) {
-        this.service = service;
-    }
 
     @PostMapping
     public ResponseEntity<String> createCustomer(

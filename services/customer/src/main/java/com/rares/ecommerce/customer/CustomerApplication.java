@@ -1,4 +1,4 @@
-package com.rares.ecommerce;
+package com.rares.ecommerce.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
