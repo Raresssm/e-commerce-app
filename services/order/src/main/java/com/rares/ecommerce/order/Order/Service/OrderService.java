@@ -1,9 +1,11 @@
 package com.rares.ecommerce.order.Order.Service;
 
+import com.rares.ecommerce.order.Clients.Payment.DTO.PaymentRequest;
+import com.rares.ecommerce.order.Clients.Payment.PaymentClient;
 import com.rares.ecommerce.order.Order.DTO.OrderResponse;
 import com.rares.ecommerce.order.Clients.Customer.CustomerClient;
 import com.rares.ecommerce.order.Order.DTO.OrderRequest;
-import com.rares.ecommerce.order.Kafka.OrderConfirmation;
+import com.rares.ecommerce.order.Kafka.Confirmation.OrderConfirmation;
 import com.rares.ecommerce.order.Kafka.OrderProducer;
 import com.rares.ecommerce.order.Clients.Product.DTO.PurchaseRequest;
 import com.rares.ecommerce.order.Exceptions.BusinessException;
@@ -30,6 +32,7 @@ public class OrderService {
     private final ProductClient productClient;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(@Valid OrderRequest request) {
         var customer = this.customerClient.findCustomerById((request.customerId()))
@@ -48,7 +51,15 @@ public class OrderService {
                             purchaseRequest.quantity()
                     ));
         }
-        //todo start payment process
+
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(

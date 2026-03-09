@@ -1,0 +1,35 @@
+spring:
+  mongodb:
+    username: rares
+    password: rares
+    host: localhost
+    port: 27017
+    database: customer
+    authentication-database: admin
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup, orderGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: orderConfirmation:com.rares.ecommerce.notification.Kafka.Order.OrderConfirmation,paymentConfirmation:com.rares.ecommerce.notification.Kafka.Payment.PaymentConfirmation
+  mail:
+    host: localhost
+    port: 1025
+    username: rares
+    password: rares
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        startls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+server:
+  port: 8040

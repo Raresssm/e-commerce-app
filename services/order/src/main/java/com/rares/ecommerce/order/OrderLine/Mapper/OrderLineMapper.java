@@ -1,6 +1,7 @@
 package com.rares.ecommerce.order.OrderLine.Mapper;
 
 import com.rares.ecommerce.order.Order.Model.Order;
+import com.rares.ecommerce.order.OrderLine.DTO.OrderLineResponse;
 import com.rares.ecommerce.order.OrderLine.Model.OrderLine;
 import com.rares.ecommerce.order.OrderLine.DTO.OrderLineRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,11 @@ public class OrderLineMapper {
                 )
                 .productId(request.productId())
                 .build();
+    }
+
+    public OrderLineResponse toOrderLineResponse(OrderLine orderLine) {
+        return new OrderLineResponse(
+                orderLine.getId(),
+                orderLine.getQuantity());
     }
 }
