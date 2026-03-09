@@ -55,21 +55,21 @@ public class ProductService {
             var newAvailableQuantity = product.getAvailableQuantity()-productRequest.quantity();
             product.setAvailableQuantity(newAvailableQuantity);
             repository.save(product);
-            purchasedProducts.add(mapper.toProductPurchaseRespose(product, productRequest.quantity()));
+            purchasedProducts.add(mapper.toProductPurchaseResponse(product, productRequest.quantity()));
         }
         return purchasedProducts;
     }
 
     public ProductResponse findById(Integer productId) {
         return repository.findById(productId)
-                .map(mapper::toProductRespose)
+                .map(mapper::toProductResponse)
                 .orElseThrow(()-> new EntityNotFoundException("Product not found with ID:: " + productId));
     }
 
     public List<ProductResponse> findAll() {
         return repository.findAll()
                 .stream()
-                .map(mapper::toProductRespose)
+                .map(mapper::toProductResponse)
                 .collect(Collectors.toList());
     }
 }

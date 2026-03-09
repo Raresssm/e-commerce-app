@@ -24,7 +24,7 @@ public class ProductMapper {
                 .build();
     }
 
-    public ProductResponse toProductRespose(Product product) {
+    public ProductResponse toProductResponse(Product product) {
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
@@ -37,7 +37,7 @@ public class ProductMapper {
         );
     }
 
-    public ProductPurchaseResponse toProductPurchaseRespose(Product product, double quantity) {
+    public ProductPurchaseResponse toProductPurchaseResponse(Product product, double quantity) {
         return new ProductPurchaseResponse(
                 product.getId(),
                 product.getName(),
