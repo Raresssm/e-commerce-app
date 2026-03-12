@@ -1,6 +1,6 @@
 package com.rares.ecommerce.order.Order.DTO;
 
-import com.rares.ecommerce.order.Clients.Product.DTO.PurchaseRequest;
+import com.rares.ecommerce.order.Integration.Client.Product.DTO.PurchaseRequest;
 import com.rares.ecommerce.order.Order.Model.PaymentMethod;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

@@ -1,7 +1,7 @@
 package com.rares.ecommerce.payment.Payment.Service;
 
-import com.rares.ecommerce.payment.Notification.NotificationProducer;
-import com.rares.ecommerce.payment.Notification.PaymentNotificationRequest;
+import com.rares.ecommerce.payment.Kafka.Producer.NotificationProducer;
+import com.rares.ecommerce.payment.Kafka.Event.PaymentNotification;
 import com.rares.ecommerce.payment.Payment.DTO.PaymentRequest;
 import com.rares.ecommerce.payment.Payment.Mapper.PaymentMapper;
 import com.rares.ecommerce.payment.Payment.Repository.PaymentRepository;
@@ -19,15 +19,14 @@ public class PaymentService {
 
     public Integer createPayment(@Valid PaymentRequest request) {
         var payment = repository.save(mapper.toPayment(request));
-        notificationProducer.sendNotification(new PaymentNotificationRequest(
+        notificationProducer.sendNotification(new PaymentNotification(
                 request.orderReference(),
                 request.amount(),
                 request.paymentMethod(),
-                request.customer().firstname(),
-                request.customer().lastname(),
-                request.customer().email()
+                request.customerResponse().firstname(),
+                request.customerResponse().lastname(),
+                request.customerResponse().email()
         ));
-
         return payment.getId();
     }
 }

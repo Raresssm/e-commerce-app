@@ -1,10 +1,9 @@
 package com.rares.ecommerce.notification.Kafka.Consumer;
 
-import com.rares.ecommerce.notification.Kafka.Email.Service.EmailService;
-import com.rares.ecommerce.notification.Kafka.Order.OrderConfirmation;
-import com.rares.ecommerce.notification.Kafka.Payment.PaymentConfirmation;
+import com.rares.ecommerce.notification.Email.Service.EmailService;
+import com.rares.ecommerce.notification.Event.Order.OrderConfirmation;
+import com.rares.ecommerce.notification.Event.Payment.PaymentConfirmation;
 import com.rares.ecommerce.notification.Notification.Model.Notification;
-import com.rares.ecommerce.notification.Notification.Model.NotificationType;
 import com.rares.ecommerce.notification.Notification.Repository.NotificationRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;

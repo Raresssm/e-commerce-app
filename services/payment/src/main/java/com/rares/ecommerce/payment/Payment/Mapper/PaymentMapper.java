@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentMapper {
-    //todo: add customer field
+    //todo: add customerResponse field
     public Payment toPayment(PaymentRequest request) {
         return Payment.builder()
                 .id(request.id())

@@ -1,19 +1,19 @@
 package com.rares.ecommerce.order.Order.Service;
 
-import com.rares.ecommerce.order.Clients.Payment.DTO.PaymentRequest;
-import com.rares.ecommerce.order.Clients.Payment.PaymentClient;
+import com.rares.ecommerce.order.Integration.Client.Payment.DTO.PaymentRequest;
+import com.rares.ecommerce.order.Integration.Client.Payment.PaymentClient;
 import com.rares.ecommerce.order.Order.DTO.OrderResponse;
-import com.rares.ecommerce.order.Clients.Customer.CustomerClient;
+import com.rares.ecommerce.order.Integration.Client.Customer.CustomerClient;
 import com.rares.ecommerce.order.Order.DTO.OrderRequest;
-import com.rares.ecommerce.order.Kafka.Confirmation.OrderConfirmation;
-import com.rares.ecommerce.order.Kafka.OrderProducer;
-import com.rares.ecommerce.order.Clients.Product.DTO.PurchaseRequest;
-import com.rares.ecommerce.order.Exceptions.BusinessException;
+import com.rares.ecommerce.order.Integration.Kafka.Event.OrderConfirmation;
+import com.rares.ecommerce.order.Integration.Kafka.Producer.OrderProducer;
+import com.rares.ecommerce.order.Integration.Client.Product.DTO.PurchaseRequest;
+import com.rares.ecommerce.order.Exception.BusinessException;
 import com.rares.ecommerce.order.Order.Mapper.OrderMapper;
 import com.rares.ecommerce.order.Order.Repository.OrderRepository;
 import com.rares.ecommerce.order.OrderLine.DTO.OrderLineRequest;
 import com.rares.ecommerce.order.OrderLine.Service.OrderLineService;
-import com.rares.ecommerce.order.Clients.Product.ProductClient;
+import com.rares.ecommerce.order.Integration.Client.Product.ProductClient;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

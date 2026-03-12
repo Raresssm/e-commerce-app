@@ -1,6 +1,6 @@
-package com.rares.ecommerce.product.handler;
+package com.rares.ecommerce.order.Exception.handler;
 
-import com.rares.ecommerce.product.Exceptions.ProductPurchaseException;
+import com.rares.ecommerce.order.Exception.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,11 +16,11 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ProductPurchaseException.class)
-    public ResponseEntity<String> handle(ProductPurchaseException ex) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handle(BusinessException ex) {
         return ResponseEntity
                 .status(NOT_FOUND)
-                .body(ex.getMessage());
+                .body(ex.getMsg());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

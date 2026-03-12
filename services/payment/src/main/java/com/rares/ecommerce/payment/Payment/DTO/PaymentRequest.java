@@ -1,6 +1,6 @@
 package com.rares.ecommerce.payment.Payment.DTO;
 
-import com.rares.ecommerce.payment.Customer.Model.Customer;
+import com.rares.ecommerce.payment.Payment.DTO.External.customer.CustomerResponse;
 import com.rares.ecommerce.payment.Payment.Model.PaymentMethod;
 
 import java.math.BigDecimal;
@@ -12,6 +12,6 @@ public record PaymentRequest(
         PaymentMethod paymentMethod,
         Integer orderId,
         String orderReference,
-        Customer customer
+        CustomerResponse customerResponse
 ) {
 }

@@ -1,7 +1,7 @@
 package com.rares.ecommerce.notification.Notification.Model;
 
-import com.rares.ecommerce.notification.Kafka.Order.OrderConfirmation;
-import com.rares.ecommerce.notification.Kafka.Payment.PaymentConfirmation;
+import com.rares.ecommerce.notification.Event.Order.OrderConfirmation;
+import com.rares.ecommerce.notification.Event.Payment.PaymentConfirmation;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
