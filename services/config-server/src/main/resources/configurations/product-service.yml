@@ -13,7 +13,7 @@ spring:
     baseline-on-migrate: true
     enabled: true
     baseline-description: "init"
-    baseline-version: 0;
+    baseline-version: 0
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 server:

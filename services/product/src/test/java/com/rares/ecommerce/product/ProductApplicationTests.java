@@ -1,4 +1,4 @@
-package com.rares.ecommerce;
+package com.rares.ecommerce.product;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
