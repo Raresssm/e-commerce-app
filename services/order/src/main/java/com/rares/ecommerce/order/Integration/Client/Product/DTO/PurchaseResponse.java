@@ -7,6 +7,6 @@ public record PurchaseResponse(
         String name,
         String description,
         BigDecimal price,
-        double quantity
+        Integer quantity
 ) {
 }

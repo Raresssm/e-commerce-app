@@ -10,8 +10,9 @@
         <module name="config-server" />
         <module name="discovery" />
         <module name="gateway" />
+        <module name="order" />
       </profile>
-      <profile name="Annotation profile for product" enabled="true">
+      <profile name="Annotation profile for payment" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,9 +20,8 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
         </processorPath>
         <module name="notification" />
-        <module name="product" />
         <module name="payment" />
-        <module name="order" />
+        <module name="product" />
         <module name="customer" />
       </profile>
     </annotationProcessing>

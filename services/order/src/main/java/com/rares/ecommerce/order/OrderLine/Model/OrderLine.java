@@ -21,5 +21,5 @@ public class OrderLine {
     private Order order;
 
     private Integer productId;
-    private double quantity;
+    private Integer quantity;
 }

@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +36,26 @@ public class OrderService {
     private final PaymentClient paymentClient;
 
     public Integer createOrder(@Valid OrderRequest request) {
+        //check if customer exists and get their details
         var customer = this.customerClient.findCustomerById((request.customerId()))
                 .orElseThrow(()->new BusinessException("Cannot create order:: No customer exists with the provided ID"));
 
+        //check if products exist and get their details
         var purchasedProducts = this.productClient.purchaseProducts(request.products());
 
-        var order = this.repository.save(mapper.toOrder(request));
+        //calculate total amount
+        BigDecimal calculatedAmount = BigDecimal.ZERO;
+        for (var product : purchasedProducts) {
+            BigDecimal lineTotal = product.price().multiply(BigDecimal.valueOf(product.quantity()));
+            calculatedAmount = calculatedAmount.add(lineTotal);
+        }
 
+        //save order and set amount
+        var order = mapper.toOrder(request);
+        order.setTotalAmount(calculatedAmount);
+        order = this.repository.save(order);
+
+        //create order lines
         for(PurchaseRequest purchaseRequest:request.products()){
             orderLineService.saveOrderLine(
                     new OrderLineRequest(
@@ -53,7 +67,7 @@ public class OrderService {
         }
 
         var paymentRequest = new PaymentRequest(
-                request.amount(),
+                order.getTotalAmount(),
                 request.paymentMethod(),
                 order.getId(),
                 order.getReference(),
@@ -64,7 +78,7 @@ public class OrderService {
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
                         request.reference(),
-                        request.amount(),
+                        order.getTotalAmount(),
                         request.paymentMethod(),
                         customer,
                         purchasedProducts

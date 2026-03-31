@@ -11,10 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record OrderRequest(
-        Integer id,
         String reference,
-        @Positive(message = "Order amount should be positive")
-        BigDecimal amount,
         @NotNull(message = "Payment method should be specified")
         PaymentMethod paymentMethod,
         @NotNull(message = "Customer should be present")

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 public class ProductMapper {
     public Product toProduct(@Valid ProductRequest request) {
         return Product.builder()
-                .id(request.id())
                 .name(request.name())
                 .description(request.description())
                 .price(request.price())

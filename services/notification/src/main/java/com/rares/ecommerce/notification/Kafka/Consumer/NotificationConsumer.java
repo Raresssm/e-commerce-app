@@ -35,7 +35,7 @@ public class NotificationConsumer {
                         .paymentConfirmation(paymentConfirmation)
                         .build());
 
-        var customerName = paymentConfirmation.customerFirstname()+" "+paymentConfirmation.customerLastname();
+        var customerName = paymentConfirmation.customerFirstName()+" "+paymentConfirmation.customerLastName();
         emailService.sendPaymentSuccessEmail(
                 paymentConfirmation.customerEmail(),
                 customerName,

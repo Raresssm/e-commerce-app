@@ -11,7 +11,6 @@ public class CustomerMapper {
     public Customer toCustomer(@Valid CustomerRequest request) {
         if(request == null) return null;
         return Customer.builder()
-                .id(request.id())
                 .firstname(request.firstname())
                 .lastname(request.lastname())
                 .email(request.email())

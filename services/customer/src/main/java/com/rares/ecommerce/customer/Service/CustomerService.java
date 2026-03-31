@@ -42,10 +42,10 @@ public class CustomerService {
             customer.setFirstname(request.firstname());
 
         if(StringUtils.isNotBlank((request.lastname())))
-            customer.setFirstname(request.lastname());
+            customer.setLastname(request.lastname());
 
         if(StringUtils.isNotBlank((request.email())))
-            customer.setFirstname(request.email());
+            customer.setEmail(request.email());
 
         if(request.address() != null)
             customer.setAddress(request.address());
