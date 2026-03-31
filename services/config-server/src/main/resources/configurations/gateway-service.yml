@@ -36,6 +36,16 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Customer-Service
+        url: /api/v1/customers/v3/api-docs
+      - name: Product-Service
+        url: /api/v1/products/v3/api-docs
+      - name: Order-Service
+        url: /api/v1/orders/v3/api-docs
+
 logging:
   level:
     org.springframework.cloud.gateway: TRACE

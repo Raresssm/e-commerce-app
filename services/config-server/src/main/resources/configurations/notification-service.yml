@@ -33,4 +33,5 @@ spring:
         timeout: 3000
         writetimeout: 5000
 server:
+  forward-headers-strategy: framework
   port: 8040

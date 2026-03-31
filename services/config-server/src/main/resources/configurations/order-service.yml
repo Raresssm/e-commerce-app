@@ -16,7 +16,13 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.type.mapping: orderConfirmation:com.rares.ecommerce.order.Integration.Kafka.Event.OrderConfirmation
+
+springdoc:
+  api-docs:
+    path: /api/v1/orders/v3/api-docs
+
 server:
+  forward-headers-strategy: framework
   port: 8070
 application:
   config:

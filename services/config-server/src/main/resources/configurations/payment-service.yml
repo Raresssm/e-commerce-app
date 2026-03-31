@@ -20,4 +20,5 @@ spring:
         spring.json.type.mapping: paymentConfirmation:com.rares.ecommerce.payment.Kafka.Event.PaymentNotification
 
 server:
+  forward-headers-strategy: framework
   port: 8060
