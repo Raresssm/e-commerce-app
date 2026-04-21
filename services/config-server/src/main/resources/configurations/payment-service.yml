@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9099/realms/micro-services"
   datasource:
     url: jdbc:postgresql://localhost:5432/payment
     username: rares

@@ -1,6 +1,8 @@
 package com.rares.ecommerce.customer.handler;
 
+import com.rares.ecommerce.customer.Exceptions.CustomerAlreadyExistsException;
 import com.rares.ecommerce.customer.Exceptions.CustomerNotFoundException;
+import com.rares.ecommerce.customer.Exceptions.RegistrationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,6 +19,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handle(CustomerNotFoundException ex) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(CustomerAlreadyExistsException.class)
+    public ResponseEntity<String> handle(CustomerAlreadyExistsException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    public ResponseEntity<String> handle(RegistrationException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_GATEWAY)
                 .body(ex.getMessage());
     }
 

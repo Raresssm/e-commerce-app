@@ -14,6 +14,7 @@ public class Customer {
 
     @Id
     private String id;
+    private String keycloakId;
     private String firstname;
     private String lastname;
     private String email;

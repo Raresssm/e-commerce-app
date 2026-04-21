@@ -2,6 +2,7 @@ package com.rares.ecommerce.customer.Mapper;
 
 import com.rares.ecommerce.customer.DTO.CustomerRequest;
 import com.rares.ecommerce.customer.DTO.CustomerResponse;
+import com.rares.ecommerce.customer.DTO.RegisterRequest;
 import com.rares.ecommerce.customer.model.Customer;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,18 @@ public class CustomerMapper {
                 customer.getAddress()
         );
 
+    }
+
+    public Customer toCustomer(RegisterRequest request, String keycloakId) {
+        if (request == null) {
+            return null;
+        }
+        return Customer.builder()
+                .keycloakId(keycloakId)
+                .firstname(request.firstname())
+                .lastname(request.lastname())
+                .email(request.email())
+                .address(request.address())
+                .build();
     }
 }

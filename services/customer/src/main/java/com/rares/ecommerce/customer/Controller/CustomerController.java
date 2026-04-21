@@ -2,10 +2,16 @@ package com.rares.ecommerce.customer.Controller;
 
 import com.rares.ecommerce.customer.DTO.CustomerRequest;
 import com.rares.ecommerce.customer.DTO.CustomerResponse;
+import com.rares.ecommerce.customer.DTO.RegisterRequest;
+import com.rares.ecommerce.customer.DTO.RegisterResponse;
+import com.rares.ecommerce.customer.Service.CustomerRegistrationService;
 import com.rares.ecommerce.customer.Service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +22,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService service;
+    private final CustomerRegistrationService registrationService;
 
     @PostMapping
     public ResponseEntity<String> createCustomer(
@@ -56,6 +63,18 @@ public class CustomerController {
     ){
         service.deleteById(customerId);
         return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<CustomerResponse> me(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(service.getOrCreateFromToken(jwt));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(registrationService.register(request));
     }
 
 }

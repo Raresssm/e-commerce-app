@@ -9,6 +9,7 @@ import com.rares.ecommerce.customer.model.Customer;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,5 +73,23 @@ public class CustomerService {
 
     public void deleteById(String customerId) {
         repository.deleteById(customerId);
+    }
+
+    public CustomerResponse getOrCreateFromToken(Jwt jwt) {
+
+        String keycloakId = jwt.getSubject();
+
+        Customer customer = repository.findByKeycloakId(keycloakId)
+                .orElseGet(() -> Customer.builder()
+                        .keycloakId(keycloakId)
+                        .firstname(jwt.getClaim("given_name"))
+                        .lastname(jwt.getClaim("family_name"))
+                        .email(jwt.getClaim("email"))
+                        .build()
+                );
+
+        customer = repository.save(customer);
+
+        return mapper.fromCustomer(customer);
     }
 }

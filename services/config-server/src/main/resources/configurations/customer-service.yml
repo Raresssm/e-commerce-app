@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9099/realms/micro-services"
   data:
     mongodb:
       username: rares
@@ -7,6 +12,15 @@ spring:
       port: 27017
       database: customer
       authentication-database: admin
+
+application:
+  keycloak:
+    server-url: ${KEYCLOAK_SERVER_URL:http://localhost:9099}
+    realm: ${KEYCLOAK_REALM:micro-services}
+    admin-realm: ${KEYCLOAK_ADMIN_REALM:master}
+    admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
+    admin-username: ${KEYCLOAK_ADMIN_USERNAME:admin}
+    admin-password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
 
 springdoc:
   api-docs:
