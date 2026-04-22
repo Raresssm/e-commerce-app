@@ -12,8 +12,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -51,21 +54,40 @@ public class SecurityConfig {
 
         converter.setJwtGrantedAuthoritiesConverter(jwt -> {
 
-            Collection<GrantedAuthority> authorities = new ArrayList<>();
+            Set<String> roles = new LinkedHashSet<>();
+            collectRoles((Map<String, Object>) jwt.getClaim("realm_access"), roles);
 
-            Map<String, Object> realmAccess = jwt.getClaim("realm_access");
-
-            if (realmAccess != null) {
-                List<String> roles = (List<String>) realmAccess.get("roles");
-
-                for (String role : roles) {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+            Map<String, Object> resourceAccess = (Map<String, Object>) jwt.getClaim("resource_access");
+            if (resourceAccess != null) {
+                for (Object clientAccess : resourceAccess.values()) {
+                    if (clientAccess instanceof Map<?, ?> accessMap) {
+                        collectRoles((Map<String, Object>) accessMap, roles);
+                    }
                 }
             }
 
+            Collection<GrantedAuthority> authorities = new ArrayList<>();
+            for (String role : roles) {
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase(Locale.ROOT)));
+            }
             return authorities;
         });
 
         return converter;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void collectRoles(Map<String, Object> accessContainer, Set<String> roles) {
+        if (accessContainer == null) {
+            return;
+        }
+        Object rawRoles = accessContainer.get("roles");
+        if (rawRoles instanceof Collection<?> roleList) {
+            for (Object role : roleList) {
+                if (role instanceof String roleName && !roleName.isBlank()) {
+                    roles.add(roleName);
+                }
+            }
+        }
     }
 }

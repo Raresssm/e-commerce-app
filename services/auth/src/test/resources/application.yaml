@@ -1,0 +1,38 @@
+spring:
+  config:
+    import: ""
+  cloud:
+    config:
+      enabled: false
+      import-check:
+        enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9099/realms/micro-services/protocol/openid-connect/certs
+  data:
+    mongodb:
+      username: rares
+      password: rares
+      host: localhost
+      port: 27017
+      database: auth
+      authentication-database: admin
+  mail:
+    host: localhost
+    port: 1025
+
+application:
+  auth:
+    frontend-base-url: http://localhost:3000
+    mail-from: no-reply@ecommerce.local
+    reset-token-ttl-minutes: 30
+    email-verification-ttl-hours: 24
+  keycloak:
+    server-url: http://localhost:9099
+    realm: micro-services
+    admin-realm: master
+    admin-client-id: admin-cli
+    admin-username: admin
+    admin-password: admin

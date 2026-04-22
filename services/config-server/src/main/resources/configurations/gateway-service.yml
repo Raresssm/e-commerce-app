@@ -11,6 +11,11 @@ spring:
           enabled: false
 
       routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+
         - id: customer-service
           uri: lb://CUSTOMER-SERVICE
           predicates:
@@ -44,6 +49,8 @@ eureka:
 springdoc:
   swagger-ui:
     urls:
+      - name: Auth-Service
+        url: /api/v1/auth/v3/api-docs
       - name: Customer-Service
         url: /api/v1/customers/v3/api-docs
       - name: Product-Service
